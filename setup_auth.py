@@ -3,7 +3,7 @@ import os
 
 #head or no head
 head = False
-CANVAS_URL = "https://creanlutheran.instructure.com/login/saml"
+CANVAS_URL = "canvas login URL"
 
 def save_auth():
     google_email = os.getenv("GOOGLE_EMAIL")

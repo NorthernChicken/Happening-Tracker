@@ -7,7 +7,7 @@ from playwright.sync_api import sync_playwright
 
 #if you want head or not
 head = False
-GRADES_URL = "https://creanlutheran.instructure.com/grades" 
+GRADES_URL = "canvas grade URL" 
 
 def reauthenticate():
     """Run setup_auth.py to refresh authentication."""
