@@ -8,6 +8,7 @@ import secrets
 import os
 from datetime import datetime, timedelta
 import json
+import math
 
 st.set_page_config(page_title="Grade Tracker", layout="wide")
 
@@ -185,17 +186,20 @@ if not df.empty:
     # New graph
     selection = alt.selection_point(fields=['course'], bind='legend')
 
+    max_score = math.ceil(df['score'].max() / 10) * 10
+
     chart = (
         alt.Chart(df)
-        .mark_line(point=True)
+        .mark_line(point=True, clip=True)
         .encode(
             x=alt.X('date:T', title='Refresh Time'),
-            y=alt.Y('score:Q', title='Score (%)'),
-            color=alt.Color('course:N', legend=alt.Legend(orient='right')),
+            y=alt.Y('score:Q', title='Score (%)', scale=alt.Scale(domain=(50, max_score))),
+            color=alt.Color('course:N', legend=alt.Legend(orient='left')),
             opacity=alt.condition(selection, alt.value(1), alt.value(0.15))
         )
         .add_params(selection)
         .properties(height=400)
+        .interactive(bind_y=False)
     )
 
     st.altair_chart(chart, width='stretch')
